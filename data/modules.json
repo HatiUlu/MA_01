@@ -33,7 +33,259 @@
       "6  Organisation & Einordnung",
       "7  Evaluation & Erfolgskriterien",
       "8  Wirtschaftlichkeit & Trägerschaft"
-    ]
+    ],
+    "listen": {
+      "Zielgruppe": [
+        "Schüler:innen",
+        "Bachelor",
+        "Master",
+        "Promovierende",
+        "Auszubildende",
+        "Fachkräfte",
+        "Führungskräfte",
+        "Unternehmer:innen",
+        "Freiberufler:innen",
+        "Gewerkschaft",
+        "Öffentlichkeit"
+      ],
+      "Fachbezogene Lerninhalte": [
+        "LeanManagement",
+        "Energie-&Ressourceneffizienz",
+        "IndustrialEngineering",
+        "GlobalProduction",
+        "Industrie4.0",
+        "Industrie5.0",
+        "Produktentstehungsprozess",
+        "Kreislaufwirtschaft",
+        "Nachhaltigkeit",
+        "BusinessEngineering",
+        "Künstliche Intelligenz",
+        "Objekterkennung",
+        "Ingenieurausbildung",
+        "Digital Twin",
+        "Fabrikplanung",
+        "Additive Fertigung"
+      ],
+      "Teilnehmerkonstellation": [
+        "homogen",
+        "heterogen–Wissen",
+        "heterogen–Hierarchie",
+        "heterogen–gemischteZielgruppen"
+      ],
+      "Hauptzweck": [
+        "Hochschulbildung",
+        "beruflicheAus-/Weiterbildung",
+        "Forschung"
+      ],
+      "Weichensteller der Wandlungsfähigkeit": [
+        "Mobilität",
+        "Modularität",
+        "Kompatibilität",
+        "Skalierbarkeit",
+        "Universalität"
+      ],
+      "Kompetenzklasse": [
+        "fachlich-methodischeKompetenzen",
+        "sozial-kommunikativeKompetenzen",
+        "personaleKompetenzen",
+        "aktivitätsorientierteKompetenzen"
+      ],
+      "Lernszenario": [
+        "Instruktion",
+        "Demonstration",
+        "geschlossenesSzenario",
+        "offenesSzenario"
+      ],
+      "Autonomiegrad": [
+        "angeleitet(instructed)",
+        "selbstgesteuert/selbstreguliert",
+        "selbstbestimmt/selbstorganisiert"
+      ],
+      "Trainerrolle": [
+        "Präsentator:in",
+        "Moderator:in",
+        "Coach",
+        "Instrukteur:in"
+      ],
+      "Lernaktivitätsart": [
+        "Tutorial",
+        "praktischerLaborkurs",
+        "Seminar",
+        "Workshop",
+        "Projektarbeit",
+        "FlippedClassroom",
+        "Business-Szenario(z.B.Produktlebenszyklus)"
+      ],
+      "Standardisierung_Trainer": [
+        "standardisierteLernmodule",
+        "individualisierteLernmodule",
+        "modulareLernmodule"
+      ],
+      "Evaluationsebenen": [
+        "Teilnehmerfeedback",
+        "Kompetenzmessung",
+        "TransferinrealeFabrik",
+        "ökonomischeWirkungdesTrainings",
+        "ReturnonTraining"
+      ],
+      "Evaluationsmethoden": [
+        "Wissenstest–schriftlich",
+        "Wissenstest–mündlich",
+        "schriftlicherBericht",
+        "mündlichePräsentation",
+        "praktischePrüfung",
+        "360-Grad-Assessment",
+        "keine"
+      ],
+      "Personalisierungsgrad": [
+        "Teilnehmerpersonalisierung",
+        "Gruppenpersonalisierung",
+        "keine"
+      ],
+      "Abgebildete Produktlebenszyklusphase": [
+        "Produktplanung",
+        "Produktentwicklung",
+        "Produktdesign",
+        "RapidPrototyping",
+        "Fertigung",
+        "Montage",
+        "Logistik",
+        "Service",
+        "Recycling/Remanufacturing"
+      ],
+      "Prozesstyp": [
+        "Massenproduktion",
+        "Serienproduktion",
+        "Kleinserienproduktion",
+        "Einzelfertigung"
+      ],
+      "Prozessautomatisierung": [
+        "Baustellenfertigung",
+        "Werkbankfertigung",
+        "Werkstattfertigung",
+        "Fließfertigung",
+        "wandelbareFertigungsprinzipien"
+      ],
+      "Lernumgebung": [
+        "reinphysisch(Planung+Ausführung)",
+        "physischeLF,digitalunterstützt(Linie'IT-Integration')",
+        "physischerWertstromvirtuellerweitert",
+        "reinvirtuell(Planung+Ausführung)"
+      ],
+      "Integrierte digitale Technologien": [
+        "Datenerfassung",
+        "Rückverfolgbarkeit",
+        "Datenverarbeitung(z.B.KI)",
+        "Assistenzsysteme",
+        "digitaleFertigung",
+        "Simulation",
+        "Datenmanagement&Visualisierung",
+        "Automatisierungstechnik",
+        "Cybersecurity",
+        "Netzwerktechnologien"
+      ],
+      "Materialität": [
+        "materiell(physischesProdukt)",
+        "immateriell(Dienstleistung)",
+        "digital(Daten,Software)"
+      ],
+      "Variantenanzahl": [
+        "1Variante",
+        "2-4Varianten",
+        "5-20Varianten",
+        ">20Varianten",
+        "flexibel,jenachTeilnehmenden",
+        "durchrealeAufträgebestimmt",
+        "konfigurierbar"
+      ],
+      "Weitere Produktverwendung": [
+        "Wiederverwendung/Recycling",
+        "Ausstellung/Display",
+        "Give-away",
+        "Verkauf",
+        "Entsorgung"
+      ],
+      "Betreiber": [
+        "akademische Einrichtung",
+        "nicht-akademische Einrichtung",
+        "gewinnorientierter Betreiber",
+        "Non-Profit-Organisation"
+      ],
+      "Anschubfinanzierung": [
+        "interne Mittel",
+        "externe Mittel – öffentliche Mittel",
+        "externe Mittel – Unternehmensmittel",
+        "externe Mittel – Mittel von Verbänden"
+      ],
+      "Laufende Finanzierung": [
+        "interne Mittel",
+        "externe Mittel – öffentliche Mittel",
+        "externe Mittel – Industriemittel",
+        "externe Mittel – Mittel von Verbänden",
+        "Mittel aus Produktverkauf"
+      ],
+      "Trainingsmodelle": [
+        "offene Modelle – Club-Modell",
+        "offene Modelle – Kursgebühren",
+        "geschlossene Modelle"
+      ],
+      "Schlüsselpartnerschaften": [
+        "Hochschulen",
+        "Hersteller",
+        "Beratungen",
+        "Industrie",
+        "Inkubatoren",
+        "Dienstleistungsorganisationen",
+        "NGO"
+      ],
+      "Teilnehmende pro Lernmodul": [
+        "1-5",
+        "6-10",
+        "10-15",
+        "16-20",
+        ">20"
+      ],
+      "Anzahl standardisierter Lernmodule": [
+        "1",
+        "2-4",
+        "5-10",
+        ">10",
+        "modularisiert"
+      ],
+      "Anzahl integrierter Lernmodule": [
+        "Undergraduate: 1",
+        "Undergraduate: 2-4",
+        "Undergraduate: 5-10",
+        "Undergraduate: >10",
+        "Undergraduate: modularisiert",
+        "Graduate: 1",
+        "Graduate: 2-4",
+        "Graduate: 5-10",
+        "Graduate: >10",
+        "Graduate: modularisiert"
+      ],
+      "Durchschnittsdauer Lernmodul": [
+        "≤ 0,5 Tag",
+        "0,5 – 1 Tag",
+        "1 – 2 Tage",
+        "2 – 5 Tage",
+        "5 – 10 Tage",
+        "10 – 20 Tage",
+        "> 20 Tage"
+      ],
+      "Einrichtungskosten": [
+        "< 10.000 €",
+        "10.000 – 100.000 €",
+        "100.000 € – 1 Mio. €",
+        "> 1 Mio."
+      ],
+      "Betriebskosten": [
+        "< 10.000 €",
+        "10.000 – 100.000 €",
+        "100.000 € – 1 Mio. €",
+        "> 1 Mio."
+      ]
+    }
   },
   "module": [
     {
@@ -273,7 +525,12 @@
           }
         ]
       },
-      "blatt": "01 RecycleBot – Innovationspote"
+      "blatt": "01 RecycleBot – Innovationspote",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Intermediate",
+      "zustand": "To be developed (wenig Aufwand, Partnerschaft Hörger/GOA nötig)",
+      "ansprechpartner": "RecycleBot",
+      "manuell": false
     },
     {
       "modul_id": "M_SCANTRASH_02",
@@ -511,7 +768,12 @@
           }
         ]
       },
-      "blatt": "02 Scan Your Trash – Image Reco"
+      "blatt": "02 Scan Your Trash – Image Reco",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Basic",
+      "zustand": "Fertig, erprobt mit Schüler:innen und Studis",
+      "ansprechpartner": "Scan Your Trash",
+      "manuell": false
     },
     {
       "modul_id": "M_RECBOTLAB_03",
@@ -749,7 +1011,12 @@
           }
         ]
       },
-      "blatt": "03 RecycleBot Labor – YOLO-Trai"
+      "blatt": "03 RecycleBot Labor – YOLO-Trai",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Advanced",
+      "zustand": "Existierender Laborbetrieb, fehlt didaktisches Konzept",
+      "ansprechpartner": "RecycleBot Labor",
+      "manuell": false
     },
     {
       "modul_id": "M_ROBPLAY_04",
@@ -988,7 +1255,12 @@
           }
         ]
       },
-      "blatt": "04 Let’s Play with Robots – Ein"
+      "blatt": "04 Let’s Play with Robots – Ein",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Basic–Intermediate",
+      "zustand": "Fertig, erprobt mit Studis",
+      "ansprechpartner": "Let’s Play with Robots",
+      "manuell": false
     },
     {
       "modul_id": "M_ROBAPP_05",
@@ -1227,7 +1499,12 @@
           }
         ]
       },
-      "blatt": "05 Robotik-Anwendungen Lego-Sor"
+      "blatt": "05 Robotik-Anwendungen Lego-Sor",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Basic",
+      "zustand": "Fertig, eher Demonstrator (Tag der offenen Tür)",
+      "ansprechpartner": "Tag der offenen; eher Demonstrator (Tag der offenen Tür",
+      "manuell": false
     },
     {
       "modul_id": "M_DEMOFAB_06",
@@ -1467,7 +1744,12 @@
           }
         ]
       },
-      "blatt": "06 Demo-Fabrik Feldmann – KI-ge"
+      "blatt": "06 Demo-Fabrik Feldmann – KI-ge",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Intermediate",
+      "zustand": "Fertig (Sebastian Feldmann Aufbau für Hannovermesse)",
+      "ansprechpartner": "Sebastian Feldmann",
+      "manuell": false
     },
     {
       "modul_id": "M_ASSIST_07",
@@ -1704,7 +1986,12 @@
           }
         ]
       },
-      "blatt": "07 Intelligente Assistenzsystem"
+      "blatt": "07 Intelligente Assistenzsystem",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Intermediate",
+      "zustand": "In Entwicklung im Kontext REPAIR (kein fertiges Schulungskonzept)",
+      "ansprechpartner": "kein fertiges; Schulungskonzept",
+      "manuell": false
     },
     {
       "modul_id": "M_PNPREAS_08",
@@ -1942,7 +2229,12 @@
           }
         ]
       },
-      "blatt": "08 Advanced Pick-and-Place & Re"
+      "blatt": "08 Advanced Pick-and-Place & Re",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Advanced",
+      "zustand": "Technik Nahezu fertig (Sharon, APS)",
+      "ansprechpartner": "Sharon; APS",
+      "manuell": false
     },
     {
       "modul_id": "M_I40LF_09",
@@ -2181,7 +2473,12 @@
           }
         ]
       },
-      "blatt": "09 Industrie 4.0 Lernfabrik – V"
+      "blatt": "09 Industrie 4.0 Lernfabrik – V",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Intermediate",
+      "zustand": "Macht Nicole/Steffen bereits? Lässt sich sicher weiter unterteilen",
+      "ansprechpartner": "Industrie 4.0 Lernfabrik; Nicole Stricker; Steffen Schwarzer",
+      "manuell": false
     },
     {
       "modul_id": "M_FACSUP_10",
@@ -2418,7 +2715,12 @@
           }
         ]
       },
-      "blatt": "10 Factory Supervision & KI-Coc"
+      "blatt": "10 Factory Supervision & KI-Coc",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Advanced",
+      "zustand": "Technik fertig, müsste man dran rumbauen damit das ein \"Kurs\" ist",
+      "ansprechpartner": "Factory Supervision; KI-Cockpit",
+      "manuell": false
     },
     {
       "modul_id": "M_DATAVIZ_11",
@@ -2656,7 +2958,12 @@
           }
         ]
       },
-      "blatt": "11 Data Analytics & Visualisier"
+      "blatt": "11 Data Analytics & Visualisier",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Intermediate",
+      "zustand": "vermutlich sinnvoll weiter unterteilen, unser Kurs läuft in Graduate Campus \"Data Analytics\", aktuell kein Maschinenbezug nur Python",
+      "ansprechpartner": "Graduate Campus; Data Analytics",
+      "manuell": false
     },
     {
       "modul_id": "M_PYBASE_12",
@@ -2895,7 +3202,12 @@
           }
         ]
       },
-      "blatt": "12 Python Basics für Produktion"
+      "blatt": "12 Python Basics für Produktion",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Basic",
+      "zustand": "Wir haben da was aber wirklich mit \"ich hole die Daten aus der Maschine\" nicht",
+      "ansprechpartner": "",
+      "manuell": false
     },
     {
       "modul_id": "M_SENSOR_13",
@@ -3133,7 +3445,12 @@
           }
         ]
       },
-      "blatt": "13 Sensorik & Messtechnik mit d"
+      "blatt": "13 Sensorik & Messtechnik mit d",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Basic",
+      "zustand": "Fertiges laufendes Konzept (aktuell nur Arduino, nicht Factory Box), Schulungsunterlagen FactoryBox sind aber kurz vor Fertigstellung https://learningfactorybox.com/",
+      "ansprechpartner": "",
+      "manuell": false
     },
     {
       "modul_id": "M_EMA_14",
@@ -3371,7 +3688,12 @@
           }
         ]
       },
-      "blatt": "14 EMA & Ergonomie in Montage u"
+      "blatt": "14 EMA & Ergonomie in Montage u",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Intermediate",
+      "zustand": "Fertig (Lorena), läuft jetzt im SoSe das erste mal",
+      "ansprechpartner": "Lorena",
+      "manuell": false
     },
     {
       "modul_id": "M_ARVR_15",
@@ -3610,7 +3932,12 @@
           }
         ]
       },
-      "blatt": "15 ARVR Basics für Industrieanw"
+      "blatt": "15 ARVR Basics für Industrieanw",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Intermediate",
+      "zustand": "Vorhanden Jonas",
+      "ansprechpartner": "Jonas",
+      "manuell": false
     },
     {
       "modul_id": "M_UNITYBLEND_16",
@@ -3848,7 +4175,12 @@
           }
         ]
       },
-      "blatt": "16 Unity & Blender für digitale"
+      "blatt": "16 Unity & Blender für digitale",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Intermediate",
+      "zustand": "Vorhanden Lukas, Uwe",
+      "ansprechpartner": "Lukas; Uwe",
+      "manuell": false
     },
     {
       "modul_id": "M_HRI_17",
@@ -4087,7 +4419,12 @@
           }
         ]
       },
-      "blatt": "17 Human-Robot Interaction & Co"
+      "blatt": "17 Human-Robot Interaction & Co",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Advanced",
+      "zustand": "Teilweise vorhanden (EIT Manufacturing), Praxisintegration hier fehlt bislang (ist aber in REPAIR geplant)",
+      "ansprechpartner": "RePAIR; HRI",
+      "manuell": false
     },
     {
       "modul_id": "M_AMR_18",
@@ -4325,7 +4662,12 @@
           }
         ]
       },
-      "blatt": "18 Mobile Robotik & AMR-Integra"
+      "blatt": "18 Mobile Robotik & AMR-Integra",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Intermediate–Advanced",
+      "zustand": "Teilweise vorhanden (EIT Manufacturing), Praxisintegration hier fehlt bislang (wenn wir kein AMR kaufen eher nicht)",
+      "ansprechpartner": "",
+      "manuell": false
     },
     {
       "modul_id": "M_HUMANOID_19",
@@ -4562,7 +4904,12 @@
           }
         ]
       },
-      "blatt": "19 Humanoid Robot – Machine Ten"
+      "blatt": "19 Humanoid Robot – Machine Ten",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Advanced",
+      "zustand": "Wir (Tilman) haben Demo Use Case, Workshop  mit Humanoiden zusammen mit Team Feldmann kann man aber denk ich anbieten",
+      "ansprechpartner": "Tilman; Sebastian Feldmann",
+      "manuell": false
     },
     {
       "modul_id": "M_SYSENG_20",
@@ -4800,7 +5147,12 @@
           }
         ]
       },
-      "blatt": "20 Systems Engineering für Manu"
+      "blatt": "20 Systems Engineering für Manu",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Intermediate–Advanced",
+      "zustand": "Hab ich rumliegen, mach ich im Master (Projektbezogen)",
+      "ansprechpartner": "",
+      "manuell": false
     },
     {
       "modul_id": "M_CONTEXT_21",
@@ -5038,7 +5390,12 @@
           }
         ]
       },
-      "blatt": "21 Context Inquiry & Problem Po"
+      "blatt": "21 Context Inquiry & Problem Po",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Intermediate",
+      "zustand": "Hab ich was rumliegen wäre gut, das als Methodology rauszulegen",
+      "ansprechpartner": "Methodology; das als Methodology rauszulegen",
+      "manuell": false
     },
     {
       "modul_id": "M_CHATBOT_22",
@@ -5275,7 +5632,12 @@
           }
         ]
       },
-      "blatt": "22 Digitale Assistenzsysteme & "
+      "blatt": "22 Digitale Assistenzsysteme & ",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Advanced",
+      "zustand": "Technik \"da\" Wir haben halt die alten Sachen aus COALA, und jetzt Implementierung in REPAIR / AiHub upcoming, Methodenbaukasten kommt in DIQUA",
+      "ansprechpartner": "COALA; REPAIR; AiHub; DIQUA",
+      "manuell": false
     },
     {
       "modul_id": "M_REMSTRAT_23",
@@ -5513,7 +5875,12 @@
           }
         ]
       },
-      "blatt": "23 Remanufacturing-Strategie & "
+      "blatt": "23 Remanufacturing-Strategie & ",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Strategic",
+      "zustand": "Max?",
+      "ansprechpartner": "Maximilian",
+      "manuell": false
     },
     {
       "modul_id": "M_IFIXIT_24",
@@ -5752,7 +6119,12 @@
           }
         ]
       },
-      "blatt": "24 Demontage-Workshop nach iFix"
+      "blatt": "24 Demontage-Workshop nach iFix",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Intermediate",
+      "zustand": "Haben Lorena + Jakob bei Bas Flipsen gemacht - kopieren oder Bas einladen",
+      "ansprechpartner": "Lorena; Jakob; Bas Flipsen",
+      "manuell": false
     },
     {
       "modul_id": "M_VRTRAIN_25",
@@ -5991,7 +6363,12 @@
           }
         ]
       },
-      "blatt": "25 VR-Trainings Montage- und Sc"
+      "blatt": "25 VR-Trainings Montage- und Sc",
+      "quelle_datei": "Arbeitsergebnis_01_Modulsteckbriefe.xlsx",
+      "level": "Intermediate",
+      "zustand": "Veraltet (Update erforderlich)",
+      "ansprechpartner": "",
+      "manuell": false
     }
   ]
 }
