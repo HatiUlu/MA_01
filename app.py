@@ -32,18 +32,19 @@ st.set_page_config(page_title="Modulsteckbrief-Explorer", page_icon="🏭",
 st.markdown(
     """
     <style>
-      .stApp { background: #f7f7f5; }
-      h1, h2, h3 { color: #1c2b36; }
-      .modul-karte { background:#fff; border:1px solid #e3e3df;
+      /* Nur eigene Elemente einfärben – Streamlit-Standardtext NICHT anfassen,
+         damit Labels/Eingaben in jedem Theme lesbar bleiben. */
+      .modul-karte { background: var(--secondary-background-color, #f0f2f6);
+          border: 1px solid rgba(128,128,128,0.25);
           border-radius:10px; padding:1.2rem 1.4rem; margin-bottom:1rem; }
-      .badge { display:inline-block; background:#e8eef2; color:#1c4966;
+      .badge { display:inline-block; background:#1c4966; color:#ffffff;
           border-radius:999px; padding:2px 10px; margin:2px 4px 2px 0;
           font-size:0.78rem; }
-      .badge-manuell { background:#e7f3ec; color:#0d6b5e; }
-      .sektion-titel { color:#0d6b5e; font-weight:600; margin-top:0.9rem;
-          border-bottom:1px solid #ececec; padding-bottom:2px; }
-      .feld-label { color:#5a6b75; font-size:0.82rem; }
-      .feld-wert  { color:#1c2b36; }
+      .badge-manuell { background:#0d6b5e; color:#ffffff; }
+      .sektion-titel { color:#0d6b5e; font-weight:700; margin-top:0.9rem;
+          border-bottom:1px solid rgba(128,128,128,0.3); padding-bottom:2px; }
+      .feld-label { opacity:0.7; font-size:0.82rem; margin-top:0.4rem; }
+      .feld-wert  { font-weight:500; }
     </style>
     """,
     unsafe_allow_html=True,
@@ -298,12 +299,16 @@ with tab_erfassen:
     with st.form("modul_erfassen", clear_on_submit=False):
         st.markdown("**1 Identifikation**")
         c1, c2 = st.columns(2)
-        f_id = c1.text_input("Modul-ID / Kürzel")
+        f_id = c1.text_input("Modul-ID / Kürzel",
+                             placeholder="z. B. M_SCHWARZER_DT_IOT")
         f_version = c2.text_input("Version / Stand",
                                   value=f"V_01 / {date.today().strftime('%d.%m.%Y')}")
-        f_name = st.text_input("Modulname *")
-        f_autor = st.text_input("Autor:in / verantwortlich")
-        f_ansprech = st.text_input("Ansprechpartner")
+        f_name = st.text_input("Modulname *",
+                               placeholder="Vollständiger Modultitel (Pflichtfeld)")
+        f_autor = st.text_input("Autor:in / verantwortlich",
+                                placeholder="z. B. Prof. Schwarzer")
+        f_ansprech = st.text_input("Ansprechpartner",
+                                   placeholder="Name der Kontaktperson")
 
         st.markdown("**2 Zielgruppe & Adressierung**")
         f_zielgruppe = st.multiselect("Zielgruppe(n)",
@@ -315,11 +320,18 @@ with tab_erfassen:
         f_vorwissen = st.text_input("Vorwissen / Voraussetzung")
 
         st.markdown("**3 Lernziele & Kompetenzen**")
-        f_lernziel = st.text_area("Übergeordnetes Lernziel")
+        f_lernziel = st.text_area(
+            "Übergeordnetes Lernziel",
+            placeholder="Was können die Lernenden nach dem Modul? "
+            "(„Lernende können …“)")
         f_kompetenz = st.multiselect("Kompetenzklassen (Erpenbeck)",
                                      listen.get("Kompetenzklasse", []))
-        f_bloom = st.text_input("Kognitive Stufen (Bloom)")
-        f_feinlernziele = st.text_area("Feinlernziele")
+        f_bloom = st.text_input(
+            "Kognitive Stufen (Bloom)",
+            placeholder="z. B. überwiegend 3. Anwenden, 5. Bewerten")
+        f_feinlernziele = st.text_area(
+            "Feinlernziele",
+            placeholder="Einzelne, prüfbare Lernziele – je mit Bloom-Stufe")
 
         st.markdown("**4 Inhalt & Prozessbezug**")
         f_lebenszyklus = st.multiselect(
