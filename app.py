@@ -233,8 +233,6 @@ with tab_filter:
     # Auswahl-Zustand initialisieren
     if "filter_auswahl" not in st.session_state:
         st.session_state.filter_auswahl = {}      # {dim: [werte]}
-    if "aktiver_abschnitt" not in st.session_state:
-        st.session_state.aktiver_abschnitt = None  # None = Übersicht
 
     with st.sidebar:
         st.header("Filter")
@@ -254,47 +252,38 @@ with tab_filter:
 
     aktive_filter = {d: w for d, w in st.session_state.filter_auswahl.items() if w}
 
-    # --- Gruppierte Filter-Navigation ---------------------------------------
-    if st.session_state.aktiver_abschnitt is None:
-        # ÜBERSICHT: 8 Abschnitts-Kacheln
-        st.markdown("#### Filter nach Themengruppen")
-        st.caption("Gruppe wählen, um die zugehörigen Filter zu öffnen. "
-                   "Aktive Filter sind je Gruppe markiert.")
-        spalten = st.columns(2)
-        for i, abschnitt in enumerate(abschnitte_reihenfolge):
-            dims = ABSCHNITT_DIMENSIONEN.get(abschnitt, [])
-            anzahl_aktiv = sum(
-                1 for d in dims if st.session_state.filter_auswahl.get(d))
-            with spalten[i % 2]:
-                label = abschnitt
-                if not dims:
-                    label += "  (keine Filter)"
-                elif anzahl_aktiv:
-                    label += f"  · {anzahl_aktiv} aktiv"
-                if st.button(label, key=f"grp_{i}", use_container_width=True,
-                             disabled=not dims):
-                    st.session_state.aktiver_abschnitt = abschnitt
-                    st.rerun()
-    else:
-        # DETAILSEITE einer Gruppe: nur deren Dropdowns
-        abschnitt = st.session_state.aktiver_abschnitt
-        if st.button("← zurück zur Gruppenübersicht"):
-            st.session_state.aktiver_abschnitt = None
-            st.rerun()
-        st.markdown(f"#### {abschnitt}")
+    # --- Gruppierte Filter-Tabs (8 Abschnitte, immer sichtbar) --------------
+    st.markdown("#### Filter nach Themengruppen")
+    st.caption("Gruppe oben wählen; Filter darunter. Die Ergebnisse "
+               "aktualisieren sich sofort.")
+
+    # Nur Abschnitte mit Filterdimensionen erhalten einen Tab.
+    filter_abschnitte = [a for a in abschnitte_reihenfolge
+                         if ABSCHNITT_DIMENSIONEN.get(a)]
+    # Tab-Beschriftung kompakt: Nummer + Kurzname, plus Marker bei aktiven Filtern
+    def tab_label(abschnitt: str) -> str:
         dims = ABSCHNITT_DIMENSIONEN.get(abschnitt, [])
-        for dim in dims:
-            optionen = listen.get(dim, [])
-            if not optionen:
-                continue
-            wahl = st.multiselect(
-                dim, optionen,
-                default=st.session_state.filter_auswahl.get(dim, []),
-                key=f"ms_{dim}",
-            )
-            st.session_state.filter_auswahl[dim] = wahl
-        aktive_filter = {d: w for d, w in st.session_state.filter_auswahl.items()
-                         if w}
+        n_aktiv = sum(1 for d in dims if st.session_state.filter_auswahl.get(d))
+        kurz = abschnitt.split("  ", 1)[-1] if "  " in abschnitt else abschnitt
+        nr = abschnitt.split("  ", 1)[0]
+        return f"{nr}. {kurz}" + (f" ●{n_aktiv}" if n_aktiv else "")
+
+    gruppe_tabs = st.tabs([tab_label(a) for a in filter_abschnitte])
+    for tab, abschnitt in zip(gruppe_tabs, filter_abschnitte):
+        with tab:
+            for dim in ABSCHNITT_DIMENSIONEN[abschnitt]:
+                optionen = listen.get(dim, [])
+                if not optionen:
+                    continue
+                wahl = st.multiselect(
+                    dim, optionen,
+                    default=st.session_state.filter_auswahl.get(dim, []),
+                    key=f"ms_{dim}",
+                )
+                st.session_state.filter_auswahl[dim] = wahl
+
+    aktive_filter = {d: w for d, w in st.session_state.filter_auswahl.items()
+                     if w}
 
     st.divider()
 
@@ -360,99 +349,117 @@ with tab_filter:
 with tab_erfassen:
     st.subheader("Neues Modul erfassen")
     st.caption(
-        "Leeres Formular. Freitextfelder für die Steckbrief-Abschnitte, "
-        "Dropdowns für die normierte LISTEN-Klassifikation. Speichern schreibt "
+        "Die 8 Abschnitte als Tabs – du kannst frei zwischen ihnen wechseln, "
+        "ohne dass Eingaben verloren gehen. Unten „Modul speichern“ schreibt "
         "dauerhaft in data/modules.json (lokal)."
     )
 
-    with st.form("modul_erfassen", clear_on_submit=False):
-        st.markdown("**1 Identifikation**")
+    e1, e2, e3, e4, e5, e6, e7, e8 = st.tabs([
+        "1. Identifikation", "2. Zielgruppe", "3. Lernziele",
+        "4. Inhalt & Prozess", "5. Didaktik", "6. Organisation",
+        "7. Evaluation", "8. Wirtschaftlichkeit",
+    ])
+
+    with e1:
         c1, c2 = st.columns(2)
-        f_id = c1.text_input("Modul-ID / Kürzel",
+        f_id = c1.text_input("Modul-ID / Kürzel", key="e_id",
                              placeholder="z. B. M_SCHWARZER_DT_IOT")
-        f_version = c2.text_input("Version / Stand",
-                                  value=f"V_01 / {date.today().strftime('%d.%m.%Y')}")
-        f_name = st.text_input("Modulname *",
+        f_version = c2.text_input(
+            "Version / Stand", key="e_version",
+            value=f"V_01 / {date.today().strftime('%d.%m.%Y')}")
+        f_name = st.text_input("Modulname *", key="e_name",
                                placeholder="Vollständiger Modultitel (Pflichtfeld)")
-        f_autor = st.text_input("Autor:in / verantwortlich",
+        f_autor = st.text_input("Autor:in / verantwortlich", key="e_autor",
                                 placeholder="z. B. Prof. Schwarzer")
-        f_ansprech = st.text_input("Ansprechpartner",
+        f_ansprech = st.text_input("Ansprechpartner", key="e_ansprech",
                                    placeholder="Name der Kontaktperson")
 
-        st.markdown("**2 Zielgruppe & Adressierung**")
+    with e2:
         f_zielgruppe = st.multiselect("Zielgruppe(n)",
-                                      listen.get("Zielgruppe", []))
+                                      listen.get("Zielgruppe", []), key="e_zg")
         f_konstellation = st.selectbox(
             "Teilnehmerkonstellation",
-            [""] + listen.get("Teilnehmerkonstellation", []))
-        f_hauptzweck = st.multiselect("Hauptzweck", listen.get("Hauptzweck", []))
-        f_vorwissen = st.text_input("Vorwissen / Voraussetzung")
+            [""] + listen.get("Teilnehmerkonstellation", []), key="e_konst")
+        f_hauptzweck = st.multiselect("Hauptzweck",
+                                      listen.get("Hauptzweck", []), key="e_zweck")
+        f_vorwissen = st.text_input("Vorwissen / Voraussetzung", key="e_vor")
 
-        st.markdown("**3 Lernziele & Kompetenzen**")
+    with e3:
         f_lernziel = st.text_area(
-            "Übergeordnetes Lernziel",
+            "Übergeordnetes Lernziel", key="e_lz",
             placeholder="Was können die Lernenden nach dem Modul? "
             "(„Lernende können …“)")
         f_kompetenz = st.multiselect("Kompetenzklassen (Erpenbeck)",
-                                     listen.get("Kompetenzklasse", []))
+                                     listen.get("Kompetenzklasse", []), key="e_komp")
         f_bloom = st.text_input(
-            "Kognitive Stufen (Bloom)",
+            "Kognitive Stufen (Bloom)", key="e_bloom",
             placeholder="z. B. überwiegend 3. Anwenden, 5. Bewerten")
         f_feinlernziele = st.text_area(
-            "Feinlernziele",
+            "Feinlernziele", key="e_fein",
             placeholder="Einzelne, prüfbare Lernziele – je mit Bloom-Stufe")
 
-        st.markdown("**4 Inhalt & Prozessbezug**")
+    with e4:
         f_lebenszyklus = st.multiselect(
             "Abgebildete Produktlebenszyklusphase",
-            listen.get("Abgebildete Produktlebenszyklusphase", []))
+            listen.get("Abgebildete Produktlebenszyklusphase", []), key="e_lz4")
         f_lerninhalte = st.multiselect("Fachbezogene Lerninhalte",
-                                       listen.get("Fachbezogene Lerninhalte", []))
-        f_technologien = st.multiselect("Integrierte digitale Technologien",
-                                        listen.get("Integrierte digitale Technologien", []))
+                                       listen.get("Fachbezogene Lerninhalte", []),
+                                       key="e_inh")
+        f_technologien = st.multiselect(
+            "Integrierte digitale Technologien",
+            listen.get("Integrierte digitale Technologien", []), key="e_tech")
         f_materialitaet = st.selectbox("Materialität",
-                                       [""] + listen.get("Materialität", []))
+                                       [""] + listen.get("Materialität", []),
+                                       key="e_mat")
 
-        st.markdown("**5 Didaktik & Methodik**")
+    with e5:
         f_szenario = st.selectbox("Lernszenario-Strategie",
-                                  [""] + listen.get("Lernszenario", []))
+                                  [""] + listen.get("Lernszenario", []), key="e_szen")
         f_autonomie = st.selectbox("Autonomiegrad",
-                                   [""] + listen.get("Autonomiegrad", []))
+                                   [""] + listen.get("Autonomiegrad", []),
+                                   key="e_auto")
         f_trainer = st.selectbox("Trainerrolle",
-                                 [""] + listen.get("Trainerrolle", []))
+                                 [""] + listen.get("Trainerrolle", []), key="e_train")
         f_aktivitaet = st.multiselect("Lernaktivität",
-                                      listen.get("Lernaktivitätsart", []))
+                                      listen.get("Lernaktivitätsart", []), key="e_akt")
 
-        st.markdown("**6 Organisation & Einordnung**")
+    with e6:
         c3, c4 = st.columns(2)
         f_dauer = c3.selectbox("Dauer",
-                               [""] + listen.get("Durchschnittsdauer Lernmodul", []))
-        f_teilnehmer = c4.selectbox("Teilnehmende pro Lernmodul",
-                                    [""] + listen.get("Teilnehmende pro Lernmodul", []))
+                               [""] + listen.get("Durchschnittsdauer Lernmodul", []),
+                               key="e_dauer")
+        f_teilnehmer = c4.selectbox(
+            "Teilnehmende pro Lernmodul",
+            [""] + listen.get("Teilnehmende pro Lernmodul", []), key="e_tn")
         f_setting = st.selectbox("Lernumgebung",
-                                 [""] + listen.get("Lernumgebung", []))
-        f_ausstattung = st.text_area("Benötigte Ausstattung")
+                                 [""] + listen.get("Lernumgebung", []), key="e_set")
+        f_ausstattung = st.text_area("Benötigte Ausstattung", key="e_aus")
 
-        st.markdown("**7 Evaluation & Erfolgskriterien**")
+    with e7:
         f_evalebene = st.multiselect("Evaluationsebene",
-                                     listen.get("Evaluationsebenen", []))
+                                     listen.get("Evaluationsebenen", []), key="e_eve")
         f_evalmethode = st.multiselect("Evaluationsmethoden",
-                                       listen.get("Evaluationsmethoden", []))
-        f_erfolg = st.text_input("Erfolgskriterium")
+                                       listen.get("Evaluationsmethoden", []),
+                                       key="e_evm")
+        f_erfolg = st.text_input("Erfolgskriterium", key="e_erf")
 
-        st.markdown("**8 Wirtschaftlichkeit & Trägerschaft**")
+    with e8:
         f_betreiber = st.selectbox("Betreiber",
-                                   [""] + listen.get("Betreiber", []))
-        f_traegerschaft = st.text_input("Trägerschaft / Partner")
+                                   [""] + listen.get("Betreiber", []), key="e_betr")
+        f_traegerschaft = st.text_input("Trägerschaft / Partner", key="e_trg")
         f_geschaeftsmodell = st.selectbox("Geschäftsmodell (Training)",
-                                          [""] + listen.get("Trainingsmodelle", []))
-        f_partnerschaften = st.multiselect("Schlüsselpartnerschaften",
-                                           listen.get("Schlüsselpartnerschaften", []))
-        f_einrichtungskosten = st.selectbox("Einrichtungskosten",
-                                            [""] + listen.get("Einrichtungskosten", []))
-        f_zustand = st.text_input("Zustand / Reifegrad")
+                                          [""] + listen.get("Trainingsmodelle", []),
+                                          key="e_gm")
+        f_partnerschaften = st.multiselect(
+            "Schlüsselpartnerschaften",
+            listen.get("Schlüsselpartnerschaften", []), key="e_part")
+        f_einrichtungskosten = st.selectbox(
+            "Einrichtungskosten",
+            [""] + listen.get("Einrichtungskosten", []), key="e_kost")
+        f_zustand = st.text_input("Zustand / Reifegrad", key="e_zust")
 
-        absenden = st.form_submit_button("Modul speichern", type="primary")
+    st.divider()
+    absenden = st.button("Modul speichern", type="primary", key="e_save")
 
     if absenden:
         if not f_name.strip():
