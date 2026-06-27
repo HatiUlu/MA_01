@@ -82,6 +82,35 @@ module = daten["module"]
 listen = daten["meta"].get("listen", {})
 abschnitte_reihenfolge = daten["meta"]["abschnitte"]
 
+KEINE_ANGABE = "keine Angabe"
+
+# Zuordnung der LISTEN-Dimensionen zu den 8 Steckbrief-Abschnitten.
+# Steuert die gruppierte Filter-Startseite.
+ABSCHNITT_DIMENSIONEN = {
+    "1  Identifikation": [],
+    "2  Zielgruppe & Adressierung": [
+        "Zielgruppe", "Teilnehmerkonstellation", "Hauptzweck"],
+    "3  Lernziele & Kompetenzen": [
+        "Kompetenzklasse", "Fachbezogene Lerninhalte"],
+    "4  Inhalt & Prozessbezug (Remanufacturing)": [
+        "Abgebildete Produktlebenszyklusphase", "Prozesstyp",
+        "Prozessautomatisierung", "Integrierte digitale Technologien",
+        "Materialität", "Variantenanzahl", "Weitere Produktverwendung",
+        "Weichensteller der Wandlungsfähigkeit"],
+    "5  Didaktik & Methodik": [
+        "Lernszenario", "Autonomiegrad", "Trainerrolle", "Lernaktivitätsart",
+        "Standardisierung_Trainer", "Personalisierungsgrad", "Lernumgebung"],
+    "6  Organisation & Einordnung": [
+        "Teilnehmende pro Lernmodul", "Durchschnittsdauer Lernmodul",
+        "Anzahl standardisierter Lernmodule", "Anzahl integrierter Lernmodule"],
+    "7  Evaluation & Erfolgskriterien": [
+        "Evaluationsebenen", "Evaluationsmethoden"],
+    "8  Wirtschaftlichkeit & Trägerschaft": [
+        "Betreiber", "Anschubfinanzierung", "Laufende Finanzierung",
+        "Trainingsmodelle", "Schlüsselpartnerschaften", "Einrichtungskosten",
+        "Betriebskosten"],
+}
+
 # Zuordnung: LISTEN-Dimension -> Steckbrief-Feld(er), in denen gesucht wird.
 # Mehrere Felder möglich; Filter greift als Teilstring (robust ggü. Freitext).
 DIM_ZU_FELDER = {
@@ -113,17 +142,14 @@ def feldwerte(modul: dict, felder: list[str]) -> str:
 
 
 def passt_dimension(modul: dict, dim: str, gewaehlt: list[str]) -> bool:
-    """Modul passt, wenn EINER der gewählten Werte im zugehörigen Feld steht."""
+    """Modul passt, wenn einer der gewählten Werte in der normierten
+    Klassifikation des Moduls steht (exakter Vergleich)."""
     if not gewaehlt:
         return True
-    felder = DIM_ZU_FELDER.get(dim, [])
-    if not felder:
-        return True
-    hay = feldwerte(modul, felder)
-    # zusätzlich manuell gesetzte normierte Werte prüfen
-    manuelle = " ".join(modul.get("listen_auswahl", {}).get(dim, [])).lower()
-    hay = hay + " " + manuelle
-    return any(w.lower() in hay for w in gewaehlt)
+    # Bestandsmodule: 'listen_norm'; manuell erfasste: 'listen_auswahl'
+    werte = set(modul.get("listen_norm", {}).get(dim, []))
+    werte |= set(modul.get("listen_auswahl", {}).get(dim, []))
+    return bool(werte & set(gewaehlt))
 
 
 def freitext_treffer(modul: dict, q: str) -> bool:
@@ -173,15 +199,18 @@ def render_steckbrief(modul: dict):
                 unsafe_allow_html=True,
             )
 
-    # Bei manuell erfassten Modulen: normierte LISTEN-Auswahl zeigen
-    if modul.get("listen_auswahl"):
+    # Normierte LISTEN-Klassifikation anzeigen (Bestand: listen_norm,
+    # manuell erfasst: listen_auswahl)
+    norm_quelle = modul.get("listen_norm") or modul.get("listen_auswahl")
+    if norm_quelle:
         st.markdown("<div class='sektion-titel'>Normierte Klassifikation "
                     "(LISTEN)</div>", unsafe_allow_html=True)
-        for dim, werte in modul["listen_auswahl"].items():
-            if werte:
+        for dim, werte in norm_quelle.items():
+            werte_anzeige = [w for w in werte if w and w != KEINE_ANGABE]
+            if werte_anzeige:
                 st.markdown(
                     f"<div class='feld-label'>{dim}</div>"
-                    f"<div class='feld-wert'>{', '.join(werte)}</div>",
+                    f"<div class='feld-wert'>{', '.join(werte_anzeige)}</div>",
                     unsafe_allow_html=True,
                 )
 
@@ -201,33 +230,73 @@ tab_filter, tab_erfassen, tab_verwalten = st.tabs(
 # TAB 1 – FILTERN & ANZEIGEN
 # =============================================================================
 with tab_filter:
+    # Auswahl-Zustand initialisieren
+    if "filter_auswahl" not in st.session_state:
+        st.session_state.filter_auswahl = {}      # {dim: [werte]}
+    if "aktiver_abschnitt" not in st.session_state:
+        st.session_state.aktiver_abschnitt = None  # None = Übersicht
+
     with st.sidebar:
         st.header("Filter")
         suchbegriff = st.text_input(
             "Freitextsuche", placeholder="z. B. YOLO, Demontage, Bloom …"
         )
-
-        # Zusatzdimensionen aus Schwarzer (Level / Zustand)
         level_opt = sorted({m.get("level", "") for m in module if m.get("level")})
         gewaehlt_level = st.multiselect("Level (Schwarzer)", level_opt)
-
-        st.divider()
-        st.caption("Filter nach LISTEN-Dimensionen")
         verknuepfung = st.radio(
             "Verknüpfung der Dimensionen",
             ["UND (alle Filter erfüllt)", "ODER (mind. ein Filter)"],
-            help="Bezieht sich auf das Zusammenspiel verschiedener Dimensionen.",
         )
+        st.divider()
+        if st.button("Alle Filter zurücksetzen", use_container_width=True):
+            st.session_state.filter_auswahl = {}
+            st.rerun()
 
-        # Alle LISTEN-Dimensionen als (einklappbare) Mehrfachauswahl
-        aktive_filter: dict[str, list[str]] = {}
-        for dim, werte in listen.items():
-            with st.expander(dim, expanded=False):
-                wahl = st.multiselect(
-                    dim, werte, key=f"filt_{dim}", label_visibility="collapsed"
-                )
-                if wahl:
-                    aktive_filter[dim] = wahl
+    aktive_filter = {d: w for d, w in st.session_state.filter_auswahl.items() if w}
+
+    # --- Gruppierte Filter-Navigation ---------------------------------------
+    if st.session_state.aktiver_abschnitt is None:
+        # ÜBERSICHT: 8 Abschnitts-Kacheln
+        st.markdown("#### Filter nach Themengruppen")
+        st.caption("Gruppe wählen, um die zugehörigen Filter zu öffnen. "
+                   "Aktive Filter sind je Gruppe markiert.")
+        spalten = st.columns(2)
+        for i, abschnitt in enumerate(abschnitte_reihenfolge):
+            dims = ABSCHNITT_DIMENSIONEN.get(abschnitt, [])
+            anzahl_aktiv = sum(
+                1 for d in dims if st.session_state.filter_auswahl.get(d))
+            with spalten[i % 2]:
+                label = abschnitt
+                if not dims:
+                    label += "  (keine Filter)"
+                elif anzahl_aktiv:
+                    label += f"  · {anzahl_aktiv} aktiv"
+                if st.button(label, key=f"grp_{i}", use_container_width=True,
+                             disabled=not dims):
+                    st.session_state.aktiver_abschnitt = abschnitt
+                    st.rerun()
+    else:
+        # DETAILSEITE einer Gruppe: nur deren Dropdowns
+        abschnitt = st.session_state.aktiver_abschnitt
+        if st.button("← zurück zur Gruppenübersicht"):
+            st.session_state.aktiver_abschnitt = None
+            st.rerun()
+        st.markdown(f"#### {abschnitt}")
+        dims = ABSCHNITT_DIMENSIONEN.get(abschnitt, [])
+        for dim in dims:
+            optionen = listen.get(dim, [])
+            if not optionen:
+                continue
+            wahl = st.multiselect(
+                dim, optionen,
+                default=st.session_state.filter_auswahl.get(dim, []),
+                key=f"ms_{dim}",
+            )
+            st.session_state.filter_auswahl[dim] = wahl
+        aktive_filter = {d: w for d, w in st.session_state.filter_auswahl.items()
+                         if w}
+
+    st.divider()
 
     # Filterlogik
     def modul_passt(m: dict) -> bool:
